@@ -1,59 +1,370 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏨 Hostal Real La Molina
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema completo de gestión de reservas y administración para hostal desarrollado con **Laravel 12**.
 
-## About Laravel
+## 📋 Tabla de Contenidos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Requisitos Previos](#-requisitos-previos)
+- [Instalación Rápida](#-instalación-rápida)
+- [Configuración](#-configuración)
+- [Ejecutar el Proyecto](#-ejecutar-el-proyecto)
+- [Acceso al Sistema](#-acceso-al-sistema)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Características](#-características)
+- [Documentación Adicional](#-documentación-adicional)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🔧 Requisitos Previos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Antes de comenzar, asegúrate de tener instalado:
 
-## Learning Laravel
+- **PHP 8.2** o superior
+- **Composer** (gestor de dependencias PHP)
+- **Node.js 18+** y **npm**
+- **MySQL 8.0+** o **SQLite**
+- **Git**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Verificar Instalación
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+php --version      # Debe ser 8.2 o superior
+composer --version
+node --version    # Debe ser 18 o superior
+npm --version
+mysql --version   # Opcional si usas MySQL
+```
 
-## Laravel Sponsors
+## 🚀 Instalación Rápida
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Paso 1: Clonar el Repositorio
 
-### Premium Partners
+```bash
+git clone <url-del-repositorio>
+cd hostal-real-la-molina
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Paso 2: Instalar Dependencias
 
-## Contributing
+**Dependencias PHP (Composer):**
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Dependencias Node.js (npm):**
+```bash
+npm install
+```
 
-## Code of Conduct
+### Paso 3: Configurar Variables de Entorno
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Copiar archivo de ejemplo:**
+```bash
+# Windows
+copy .env.example .env
 
-## Security Vulnerabilities
+# Linux/Mac
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Editar el archivo `.env`** y configurar:
 
-## License
+```env
+APP_NAME="Hostal Real La Molina"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Base de Datos
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hostal_real
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+
+# Puerto para administración (importante)
+ADMIN_PORT=8001
+```
+
+### Paso 4: Generar Clave de Aplicación
+
+```bash
+php artisan key:generate
+```
+
+### Paso 5: Crear Base de Datos
+
+**Opción A: MySQL**
+```sql
+CREATE DATABASE hostal_real CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+**Opción B: SQLite** (solo para desarrollo)
+```env
+# En .env cambiar:
+DB_CONNECTION=sqlite
+# Y eliminar DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
+```
+
+### Paso 6: Ejecutar Migraciones y Seeders
+
+```bash
+# Ejecutar migraciones
+php artisan migrate
+
+# Cargar datos iniciales (opcional pero recomendado)
+php artisan db:seed
+```
+
+Esto creará:
+- Tablas de la base de datos
+- Usuario administrador por defecto
+- Datos de ejemplo (habitaciones, imágenes)
+
+### Paso 7: Crear Enlace Simbólico de Storage
+
+```bash
+php artisan storage:link
+```
+
+Este comando crea un enlace simbólico para que las imágenes subidas sean accesibles públicamente.
+
+### Paso 8: Compilar Assets Frontend
+
+```bash
+# Compilar para producción
+npm run build
+
+# O para desarrollo con hot-reload
+npm run dev
+```
+
+## ▶️ Ejecutar el Proyecto
+
+### Opción 1: Scripts Automáticos (Windows) ⭐ Recomendado
+
+El proyecto incluye scripts `.bat` para facilitar el inicio:
+
+**Iniciar ambos servidores (público + admin):**
+```bash
+start-both.bat
+```
+Esto abrirá 2 ventanas:
+- Servidor público en puerto **8000**
+- Servidor admin en puerto **8001**
+
+**Solo servidor público:**
+```bash
+start-public.bat
+```
+
+**Solo servidor admin:**
+```bash
+start-admin.bat
+```
+
+### Opción 2: Comandos Manuales
+
+**Terminal 1 - Servidor Público:**
+```bash
+php artisan serve --port=8000
+```
+
+**Terminal 2 - Servidor Admin:**
+```bash
+php artisan serve --port=8001
+```
+
+### Verificar que Funciona
+
+1. Abre tu navegador en: `http://127.0.0.1:8000`
+2. Deberías ver la página principal del hostal
+3. Para admin: `http://127.0.0.1:8001/admin/login`
+
+## 🔐 Acceso al Sistema
+
+### Panel Administrativo
+
+- **URL:** `http://127.0.0.1:8001/admin/login`
+- **Email:** `admin@hostalreal.com`
+- **Contraseña:** `HostalReal2024!`
+
+> ⚠️ **IMPORTANTE:** El panel de administración **solo es accesible desde el puerto 8001** por seguridad. Si intentas acceder desde el puerto 8000, recibirás un error 404.
+
+### Sitio Público
+
+- **URL:** `http://127.0.0.1:8000`
+- Acceso libre para usuarios y reservas
+
+### Crear Nuevo Usuario Administrador
+
+Si necesitas crear otro administrador:
+
+```bash
+php artisan tinker
+```
+
+Luego en tinker:
+```php
+$user = new App\Models\User();
+$user->name = 'Tu Nombre';
+$user->email = 'tu@email.com';
+$user->password = bcrypt('tu_contraseña');
+$user->role = 'admin';
+$user->save();
+exit
+```
+
+## 📁 Estructura del Proyecto
+
+```
+hostal-real-la-molina/
+├── app/                    # Lógica de la aplicación
+│   ├── Console/            # Comandos Artisan
+│   ├── Http/
+│   │   ├── Controllers/    # Controladores
+│   │   │   ├── Admin/      # Controladores del panel admin
+│   │   │   └── Auth/       # Autenticación
+│   │   └── Middleware/     # Middleware personalizado
+│   ├── Models/             # Modelos Eloquent
+│   └── Providers/          # Service Providers
+├── bootstrap/              # Archivos de arranque
+├── config/                 # Archivos de configuración
+├── database/
+│   ├── migrations/         # Migraciones de BD
+│   └── seeders/            # Seeders de datos
+├── public/                 # Punto de entrada público
+│   ├── storage/            # Enlace simbólico a storage
+│   └── build/              # Assets compilados
+├── resources/
+│   ├── views/              # Vistas Blade
+│   │   ├── admin/          # Vistas del panel admin
+│   │   └── layouts/        # Layouts base
+│   ├── css/                # Estilos CSS
+│   └── js/                 # JavaScript
+├── routes/
+│   └── web.php             # Rutas web
+├── storage/                # Archivos de almacenamiento
+│   └── app/
+│       └── public/         # Imágenes subidas
+└── tests/                  # Tests automatizados
+```
+
+## ✨ Características Principales
+
+- ✅ **Sistema de Reservas** - Reservas en línea con verificación de disponibilidad
+- ✅ **Gestión de Habitaciones** - CRUD completo con múltiples imágenes por habitación
+- ✅ **Panel Administrativo** - Interfaz completa para gestión del hostal
+- ✅ **Control de Estado** - Visualización en tiempo real del estado de habitaciones
+- ✅ **Sistema de Reseñas** - Reseñas de huéspedes con moderación
+- ✅ **Libro de Reclamaciones** - Gestión de quejas y reclamos
+- ✅ **Galería de Imágenes** - Galería pública de instalaciones
+- ✅ **Autenticación Separada** - Sesiones independientes para admin y usuarios
+- ✅ **Seguridad Avanzada** - Middleware de protección, validación, CSRF
+
+## 🛠️ Comandos Útiles
+
+### Limpiar Caché
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+```
+
+### Recompilar Assets
+```bash
+npm run build
+```
+
+### Ver Rutas
+```bash
+php artisan route:list
+```
+
+### Acceder a Tinker (Consola Interactiva)
+```bash
+php artisan tinker
+```
+
+### Ejecutar Tests
+```bash
+php artisan test
+```
+
+## 📚 Documentación Adicional
+
+- **[Comandos Windows](COMANDOS_WINDOWS.md)** - Guía completa de comandos para Windows PowerShell
+- **[Acceso Admin](ACCESO_ADMIN.md)** - Información detallada del panel administrativo
+- **[Crear Habitaciones](CREAR_HABITACIONES.md)** - Guía paso a paso para crear habitaciones
+- **[Gestión de Imágenes](GESTION_IMAGENES_HABITACIONES.md)** - Cómo gestionar imágenes de habitaciones
+- **[Puertos Separados](PUERTOS_SEPARADOS.md)** - Explicación del sistema de puertos
+- **[Sesiones Separadas](SESIONES_SEPARADAS.md)** - Sistema de autenticación separada
+- **[Solución de Imágenes](SOLUCION_IMAGENES.md)** - Solución de problemas comunes con imágenes
+
+## 🔒 Seguridad
+
+El proyecto implementa múltiples capas de seguridad:
+
+- 🔐 Autenticación separada para administradores
+- 🛡️ Middleware de protección de rutas
+- ✅ Validación exhaustiva de datos
+- 🚫 Protección CSRF en todos los formularios
+- 🧹 Sanitización de inputs
+- 🔒 Puertos separados para admin y público
+
+## 🐛 Solución de Problemas
+
+### Error: "Class 'env' does not exist"
+```bash
+php artisan config:clear
+php artisan cache:clear
+```
+
+### Error: "Storage link already exists"
+El enlace ya existe, está bien. Si quieres recrearlo:
+```bash
+# Windows
+rmdir public\storage
+php artisan storage:link
+
+# Linux/Mac
+rm public/storage
+php artisan storage:link
+```
+
+### Error: "Port 8000/8001 already in use"
+Cierra otros servidores Laravel o cambia el puerto:
+```bash
+php artisan serve --port=8002
+```
+
+### Las imágenes no se muestran
+```bash
+php artisan storage:link
+php artisan view:clear
+```
+
+## 📝 Notas Importantes
+
+- ⚠️ **Puerto 8001 es obligatorio** para acceder al panel admin
+- ⚠️ **No subas el archivo `.env`** al repositorio (ya está en `.gitignore`)
+- ⚠️ **Cambia las credenciales** del admin en producción
+- ⚠️ **Usa `npm run build`** antes de subir a producción
+
+## 🤝 Contribuir
+
+Este es un proyecto privado para Hostal Real La Molina. Para contribuir:
+
+1. Crea una rama desde `main`
+2. Realiza tus cambios
+3. Prueba exhaustivamente
+4. Crea un Pull Request
+
+## 📄 Licencia
+
+Este proyecto es **privado** y de uso exclusivo para **Hostal Real La Molina**.
+
+---
+
+**Desarrollado con ❤️ usando Laravel 12**
