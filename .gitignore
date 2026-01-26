@@ -2,12 +2,10 @@
 .DS_Store
 .env
 .env.backup
-.env.production
 .env.local
 .env.*.local
 # Mantener archivos de ejemplo
 !.env.example
-!env.production.example
 .phpactor.json
 .phpunit.result.cache
 /.fleet

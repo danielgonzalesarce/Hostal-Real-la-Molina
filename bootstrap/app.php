@@ -20,10 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         
         // Middleware global de seguridad (solo en producción)
-        // Se aplica automáticamente en el middleware SecurityHeaders
-        $middleware->web(append: [
-            \App\Http\Middleware\SecurityHeaders::class,
-        ]);
+        if (app()->environment('production')) {
+            $middleware->web(append: [
+                \App\Http\Middleware\SecurityHeaders::class,
+            ]);
+        }
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
