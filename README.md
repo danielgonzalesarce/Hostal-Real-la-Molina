@@ -361,7 +361,60 @@ Este es un proyecto privado para Hostal Real La Molina. Para contribuir:
 3. Prueba exhaustivamente
 4. Crea un Pull Request
 
-## 📄 Licencia
+## � Despliegue en Producción
+
+### Preparación del Servidor
+
+Asegúrate de que tu servidor tenga:
+- **PHP 8.2+** con extensiones requeridas
+- **Composer**
+- **Node.js 18+** y **npm**
+- **MySQL** o base de datos compatible
+- **Servidor web** (Apache/Nginx) con configuración para Laravel
+
+### Configuración de Producción
+
+1. **Clonar en el servidor:**
+   ```bash
+   git clone <url-del-repositorio>
+   cd hostal-real-la-molina
+   ```
+
+2. **Configurar entorno:**
+   ```bash
+   cp .env.example .env
+   # Editar .env con valores de producción
+   nano .env
+   ```
+
+3. **Ejecutar script de despliegue:**
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+4. **Configurar servidor web:**
+   - Apuntar el document root a `public/`
+   - Asegurar que `storage/` y `bootstrap/cache/` sean escribibles
+   - Configurar URL rewriting para Laravel
+
+5. **Configurar base de datos:**
+   - Crear base de datos MySQL
+   - Actualizar credenciales en `.env`
+   - El script de despliegue ejecutará las migraciones
+
+### Despliegue Automático (Opcional)
+
+Para despliegues automáticos, puedes usar el workflow de GitHub Actions incluido o configurar un webhook con tu proveedor de hosting.
+
+### Verificación Post-Despliegue
+
+- Accede al sitio y verifica que cargue correctamente
+- Prueba el formulario de contacto
+- Verifica que las imágenes se carguen
+- Confirma que la base de datos esté conectada
+
+## �📄 Licencia
 
 Este proyecto es **privado** y de uso exclusivo para **Hostal Real La Molina**.
 
